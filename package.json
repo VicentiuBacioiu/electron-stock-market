@@ -1,18 +1,22 @@
 {
-    "name": "electron-stock-market",
-    "version": "1.0.0",
-    "main": "./src/main",
-    "private": true,
-    "scripts": {
-      "start": "electron ."
-    },
-    "dependencies": {
-    },
-    "devDependencies": {
-      "electron": "^1.7.8"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/vicentiubacioiu/electron-stock-market.git"
-    }
+  "name": "electron-stock-market",
+  "version": "1.0.0",
+  "main": "./main",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "buildAndRun": "./node_modules/.bin/browserify -t vueify -e src/app.js -o build/build.js && npm start"
+  },
+  "dependencies": {
+    "electron": "^1.7.8",
+    "vue": "^2.5.9"
+  },
+  "devDependencies": {
+    "browserify": "^14.5.0",
+    "vueify": "^9.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicentiubacioiu/electron-stock-market.git"
   }
+}
