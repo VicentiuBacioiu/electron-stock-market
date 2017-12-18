@@ -7,6 +7,11 @@
             "type": "npm",
             "script": "buildAndRun",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "problemMatcher": []
         }
     ]
 }

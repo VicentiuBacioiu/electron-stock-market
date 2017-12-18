@@ -9,9 +9,8 @@
             </div>
         </div>
         
-       <stock-quote></stock-quote>
+       <stock-quote v-bind:stock="stock"></stock-quote>
 
-       
        <p class="small bottom">Data provided for free by
         <a href="https://iextrading.com/developer" target="_blank">IEX</a>.
         <br/> By using this application you agree to
@@ -24,8 +23,23 @@
 var Quote = require("./quote.vue");
 
 module.exports = {
+  data() {
+    return {
+      stock: {}
+    };
+  },
   components: {
     "stock-quote": Quote
+  },
+  methods: {
+    search: function() {
+      let url =
+        "https://api.iextrading.com/1.0/stock/" + this.symbol + "/quote";
+      this.$http.get(url).then(this.showQuote);
+    },
+    showQuote: function(result) {
+      this.stock = result.data;
+    }
   }
 };
 </script>
@@ -37,12 +51,12 @@ module.exports = {
   width: 100%;
 }
 .small {
-    font-size: 8px;
-    color: #C0C0C0;
+  font-size: 8px;
+  color: #c0c0c0;
 }
 .bottom {
-    position: absolute;
-    bottom: 5px;
-    margin: 0 auto;
+  position: absolute;
+  bottom: 5px;
+  margin: 0 auto;
 }
 </style>

@@ -1,32 +1,47 @@
 <template>
-    <div class="quote">
-        <div class="row">
-            <div class="col-2">{{q.symbol}}</div>
-            <div class="col-4">{{q.lastPrice}}</div>
-            <div class="col-3">{{q.change}}</div>
-            <div class="col-3">{{q.changePercent}}</div>
+    <div class="row">
+        <div class="col-5">
+            <div class="quote" v-if="stock.symbol">
+                <div class="row">
+                    <div class="col-6">Symbol</div>
+                    <div class="col-6">{{stock.symbol}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Company Name</div>
+                    <div class="col-6">{{stock.companyName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Latest Price</div>
+                    <div class="col-6">{{stock.latestPrice}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Change</div>
+                    <div class="col-6">{{stock.change}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Change Percent</div>
+                    <div class="col-6">{{stock.changePercent}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">Latest Time</div>
+                    <div class="col-6">{{stock.latestTime}}</div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-12">{{q.name}}</div>
-        </div>  
+        <div class="col-7">
+            graph
+        </div>
     </div>
 </template>
 
 <script>
 module.exports = {
-  data() {
-    return {
-      q: {
-        symbol: "A",
-        lastPrice: 12
-      }
-    };
-  }
+  props: ["stock"]
 };
 </script>
 
 <style>
 .quote {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 </style>
