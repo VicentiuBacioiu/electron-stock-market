@@ -2,14 +2,17 @@
     <div class="container-fluid margins">
         <div class="row">
             <div class="col-10">
-                <input type="text" class="form-control full-width" placeholder="Enter symbol..." v-model="symbol" v-on:keyup.enter="search"/>
+                <input type="text" class="form-control full-width" autofocus placeholder="Enter symbol..." v-model="symbol" v-on:keyup.enter="search"/>
             </div>
             <div class="col-2">
                 <input type="button" class="btn btn-primary full-width" value="Go" v-on:click="search" />
             </div>
         </div>
         
-       <stock-quote v-bind:stock="stock"></stock-quote>
+       <stock-quote v-bind:stock="stock" v-bind:graph="graph"></stock-quote>
+       <div class="alert alert-danger" role="alert" v-if="error">
+         <strong>Error!</strong> {{this.error}}
+       </div>
 
        <p class="small bottom">Data provided for free by
         <a href="https://iextrading.com/developer" target="_blank">IEX</a>.
@@ -25,20 +28,46 @@ var Quote = require("./quote.vue");
 module.exports = {
   data() {
     return {
-      stock: {}
+      stock: {},
+      graph: {},
+      error: ""
     };
   },
   components: {
     "stock-quote": Quote
   },
   methods: {
-    search: function() {
-      let url =
-        "https://api.iextrading.com/1.0/stock/" + this.symbol + "/quote";
-      this.$http.get(url).then(this.showQuote);
+    init() {
+      this.stock = {};
+      this.graph = {};
+      this.error = "";
     },
-    showQuote: function(result) {
+    search() {
+      let url = `https://api.iextrading.com/1.0/stock/${this.symbol}/quote`;
+
+      this.init();
+      this.$http
+        .get(url)
+        .then(this.getGraphData)
+        .catch(this.handleErrors);
+    },
+    getGraphData(result) {
+      let gUrl = `https://api.iextrading.com/1.0/stock/${this.symbol}/chart/1m`;
       this.stock = result.data;
+
+      this.$http
+        .get(gUrl)
+        .then(result => {
+          this.graph = result.data;
+        })
+        .catch(this.handleErrors);
+    },
+    handleErrors(err) {
+      if (err.status === 404) {
+        this.error = "The specified symbol could not be found...";
+      } else {
+        this.error = "There was an error retrieving the data...";
+      }
     }
   }
 };
