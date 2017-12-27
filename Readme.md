@@ -5,4 +5,4 @@ A really simple Stock Market app, written in Vue.js using the Electron framework
 
 ## Instructions
 1. `npm install`
-2. `npm npm run-script buildAndRun`
+2. `npm run-script buildAndRun`
