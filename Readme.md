@@ -1,2 +1,4 @@
 # Stock Market application
-This is a stock market application developed using Electron.
+A really simple Stock Market app, written in Vue.js using the Electron framework and Bootstrap 4.
+  
+![Electron Stock Market](https://vicentiubacioiu.github.io/img/stocks.PNG)
