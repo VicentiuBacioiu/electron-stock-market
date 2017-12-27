@@ -3,6 +3,6 @@ A really simple Stock Market app, written in Vue.js using the Electron framework
   
 ![Electron Stock Market](https://vicentiubacioiu.github.io/img/stocks.PNG)
 
-##Instructions
-1. npm install
-2. npm npm run-script buildAndRun
+## Instructions
+1. `npm install`
+2. `npm npm run-script buildAndRun`
