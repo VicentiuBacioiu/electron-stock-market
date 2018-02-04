@@ -23,9 +23,12 @@
     </div>
 </template>
 <script>
+//include the quote component
 var Quote = require("./quote.vue");
 
+//export the needed properties
 module.exports = {
+  //the data model (props)
   data() {
     return {
       stock: {},
@@ -33,15 +36,18 @@ module.exports = {
       error: ""
     };
   },
+  //declare the included components, used in html
   components: {
     "stock-quote": Quote
   },
   methods: {
+    //init method, initialize props
     init() {
       this.stock = {};
       this.graph = {};
       this.error = "";
     },
+    //search method, calls API
     search() {
       let url = `https://api.iextrading.com/1.0/stock/${this.symbol}/quote`;
 
@@ -51,6 +57,7 @@ module.exports = {
         .then(this.getGraphData)
         .catch(this.handleErrors);
     },
+    //gets chart data from the API
     getGraphData(result) {
       let gUrl = `https://api.iextrading.com/1.0/stock/${this.symbol}/chart/1m`;
       this.stock = result.data;
@@ -62,6 +69,7 @@ module.exports = {
         })
         .catch(this.handleErrors);
     },
+    //method to handle errors
     handleErrors(err) {
       if (err.status === 404) {
         this.error = "The specified symbol could not be found...";

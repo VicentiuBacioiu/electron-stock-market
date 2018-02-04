@@ -37,8 +37,10 @@
 </template>
 
 <script>
+//include g-crosshair code
 let gCrosshair = require("../../lib/g-crosshair");
 
+//export needed data  
 module.exports = {
   props: ["stock", "graph"],
   data() {
@@ -56,20 +58,25 @@ module.exports = {
       }
     }
   },
+  //run when component is mounted (add resize event)
   mounted() {
     window.addEventListener("resize", this.redrawGraph);
   },
+  //run when component is destroyed (remove resize event)
   beforeDestroy() {
     window.removeEventListener("resize", this.redrawGraph);
   },
   methods: {
+    //computes chart dimensions based on page width
     computeDimensions() {
       var graphEl = document.getElementById("graph");
       this.width = graphEl.offsetWidth;
     },
+    //removes current chart
     cleanupGraph() {
       document.getElementById("graph").innerHTML = "";
     },
+    //redraw the chart with new dimensions
     redrawGraph() {
       this.cleanupGraph();
       this.computeDimensions();
